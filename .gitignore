@@ -1,0 +1,34 @@
+# Pastas geradas automaticamente pelo Unity (podem ser recriadas)
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+/[Uu]serSettings/
+
+# Arquivos de solução do Visual Studio / Rider / VS Code
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+.vs/
+.idea/
+.vscode/
+
+# Build do Unity WebGL / Standalone
+/[Aa]ssets/AssetStoreTools*
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
