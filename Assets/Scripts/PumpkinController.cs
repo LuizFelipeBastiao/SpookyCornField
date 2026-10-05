@@ -3,20 +3,29 @@ using UnityEngine;
 public class PumpkinController : MonoBehaviour
 {
 
-    public float velocidade = 5f;
+    private Vector3 ultimaPos;
     private bool isMoving = false;
     public Animator animator;
+
+    private void Start()
+    {
+        ultimaPos = transform.position;
+    }
+
+
     private void FixedUpdate()
     {
-        andar();
+        if (transform.position != ultimaPos)
+        {
+            isMoving = true;
+            ultimaPos = transform.position;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
         animator.SetBool("isMoving", isMoving);
     }
 
-    private void andar()
-    {
-        Vector3 dir = new Vector3(0, 0, velocidade);
-        transform.Translate(dir, Space.Self);
-        isMoving = true;
-        
-    }
 }
