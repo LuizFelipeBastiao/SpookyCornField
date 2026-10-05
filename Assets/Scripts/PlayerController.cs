@@ -1,26 +1,27 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-
-
     public InputActionReference moveAction;
     public InputActionReference lookAction;
+    public Transform cam;
 
-    public float velocidade = 25f;
+    public float velocidade = 5f;
     public float sensibilidade = 0.1f;
     public float limitePitch = 89f;
+    public float gravidade = -20f;
 
+    CharacterController controller;
     float yaw;
     float pitch;
+    float velocidadeY;
 
     void Start()
     {
-        // Começa com a rotação atual da câmera
-        Vector3 euler = transform.eulerAngles;
-        yaw = euler.y;
-        pitch = euler.x;
+        controller = GetComponent<CharacterController>();
+        yaw = transform.eulerAngles.y;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -44,18 +45,6 @@ public class PlayerController : MonoBehaviour
         moverPlayer();
     }
 
-    private void moverPlayer()
-    {
-        Vector2 input = moveAction.action.ReadValue<Vector2>();
-        Vector3 movement = new Vector3(input.x, 0, input.y);
-
-        Vector3 deslocamento = Quaternion.Euler(0, yaw, 0) * movement * velocidade * Time.deltaTime;
-
-        Vector3 pos = transform.position + deslocamento;
-        pos.y = transform.position.y; // mantém a altura
-        transform.position = pos;
-    }
-
     private void mirarCamera()
     {
         Vector2 look = lookAction.action.ReadValue<Vector2>();
@@ -64,7 +53,20 @@ public class PlayerController : MonoBehaviour
         pitch -= look.y * sensibilidade;
         pitch = Mathf.Clamp(pitch, -limitePitch, limitePitch);
 
-        transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
-        
+        transform.rotation = Quaternion.Euler(0f, yaw, 0f);      // corpo: só yaw
+        cam.localRotation = Quaternion.Euler(pitch, 0f, 0f);     // câmera: só pitch
+    }
+
+    private void moverPlayer()
+    {
+        Vector2 input = moveAction.action.ReadValue<Vector2>();
+        Vector3 move = transform.right * input.x + transform.forward * input.y;
+        move = Vector3.ClampMagnitude(move, 1f) * velocidade;
+
+        if (controller.isGrounded && velocidadeY < 0f) velocidadeY = -2f;
+        velocidadeY += gravidade * Time.deltaTime;
+        move.y = velocidadeY;
+
+        controller.Move(move * Time.deltaTime);
     }
 }
