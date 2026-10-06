@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float sensibilidade = 0.1f;
     public float limitePitch = 89f;
     public float gravidade = -20f;
+    
+    public int ammo;
 
     CharacterController controller;
     float yaw;
@@ -25,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        ammo = 0;
     }
 
     void OnEnable()
@@ -53,8 +57,8 @@ public class PlayerController : MonoBehaviour
         pitch -= look.y * sensibilidade;
         pitch = Mathf.Clamp(pitch, -limitePitch, limitePitch);
 
-        transform.rotation = Quaternion.Euler(0f, yaw, 0f);      // corpo: só yaw
-        cam.localRotation = Quaternion.Euler(pitch, 0f, 0f);     // câmera: só pitch
+        transform.rotation = Quaternion.Euler(0f, yaw, 0f);      // corpo: sï¿½ yaw
+        cam.localRotation = Quaternion.Euler(pitch, 0f, 0f);     // cï¿½mera: sï¿½ pitch
     }
 
     private void moverPlayer()
@@ -68,5 +72,14 @@ public class PlayerController : MonoBehaviour
         move.y = velocidadeY;
 
         controller.Move(move * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ammo"))
+        {
+            ammo += 1;
+            Destroy(other.gameObject);
+        }
     }
 }
