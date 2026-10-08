@@ -581,6 +581,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pumpkin_king
       objectReference: {fileID: 0}
+    - target: {fileID: 100154, guid: 0b40793d471baab40aea2b7bb1831c8c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400154, guid: 0b40793d471baab40aea2b7bb1831c8c, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -650,6 +654,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100154, guid: 0b40793d471baab40aea2b7bb1831c8c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 813526006}
+    - targetCorrespondingSourceObject: {fileID: 100154, guid: 0b40793d471baab40aea2b7bb1831c8c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 813526008}
   m_SourcePrefab: {fileID: 100100000, guid: 0b40793d471baab40aea2b7bb1831c8c, type: 3}
 --- !u!1 &301350856
 GameObject:
@@ -2127,6 +2134,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PumpkinController
   animator: {fileID: 813526002}
+--- !u!136 &813526008
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813526001}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Height: 12
+  m_Direction: 1
+  m_Center: {x: 0, y: 5, z: 0}
 --- !u!1001 &813561015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4226,12 +4256,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   lookAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  shootAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  shootSound: {fileID: 8300000, guid: da7d92691eeee34409953e5dfc99ad54, type: 3}
   cam: {fileID: 1298775972}
   velocidade: 15
   sensibilidade: 0.1
   limitePitch: 89
   gravidade: -20
   ammo: 0
+  alcanceTiro: 100
+  raioDaMira: 1.5
 --- !u!143 &1778031335
 CharacterController:
   m_ObjectHideFlags: 0

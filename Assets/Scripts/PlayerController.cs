@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     public InputActionReference moveAction;
     public InputActionReference lookAction;
+    public InputActionReference shootAction;
+    public AudioClip shootSound;
+
     public Transform cam;
 
     public float velocidade = 5f;
@@ -14,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public float gravidade = -20f;
     
     public int ammo;
+
+    public float alcanceTiro = 60f;
+    public float raioDaMira = 1.5f;
 
     CharacterController controller;
     float yaw;
@@ -35,17 +41,20 @@ public class PlayerController : MonoBehaviour
     {
         moveAction.action.Enable();
         lookAction.action.Enable();
+        shootAction.action.Enable();
     }
 
     void OnDisable()
     {
         moveAction.action.Disable();
         lookAction.action.Disable();
+        shootAction.action.Disable();
     }
 
     void Update()
     {
         mirarCamera();
+        atirar();
         moverPlayer();
     }
 
@@ -72,6 +81,25 @@ public class PlayerController : MonoBehaviour
         move.y = velocidadeY;
 
         controller.Move(move * Time.deltaTime);
+    }
+
+    private void atirar()
+    {
+        if (shootAction.action.triggered && ammo > 0)
+        {
+            ammo -= 1;
+
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
+
+            RaycastHit hit;
+            if (Physics.SphereCast(cam.position, raioDaMira, cam.forward, out hit, alcanceTiro))
+            {
+                if (hit.collider.CompareTag("Enemy")) 
+                {
+                    hit.collider.GetComponent<PumpkinController>().TakeDamage();
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
