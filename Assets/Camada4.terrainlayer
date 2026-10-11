@@ -8,7 +8,7 @@ TerrainLayer:
   m_PrefabAsset: {fileID: 0}
   m_Name: Camada4
   m_DiffuseTexture: {fileID: 2800000, guid: c4e25ba86bedca5438d41fd66a7687fe, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: af5fe32bc0b00f444998e49713d005ba, type: 3}
+  m_NormalMapTexture: {fileID: 0}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 10, y: 10}
   m_TileOffset: {x: 0, y: 0}
