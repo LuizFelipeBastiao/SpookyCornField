@@ -1,10 +1,36 @@
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
-    void Start()
+    public static GameManager Instance;
+
+    public event Action OnAmmoChanged;
+    public event Action OnPlayerWin;
+    
+    private void Awake()
     {
-        
+        if(Instance == null)
+        {
+            Instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void ChangeAmmo()
+    {
+        OnAmmoChanged?.Invoke();
+    }
+
+    public void WinGame()
+    {
+        OnPlayerWin?.Invoke();
+
+        Time.timeScale = 0f;
     }
 
     void Update()

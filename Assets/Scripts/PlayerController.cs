@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     
     public int ammo;
 
-    public float alcanceTiro = 60f;
+    public float alcanceTiro = 50f;
     public float raioDaMira = 1.5f;
 
     CharacterController controller;
@@ -89,6 +89,8 @@ public class PlayerController : MonoBehaviour
         {
             ammo -= 1;
 
+            GameManager.Instance.ChangeAmmo();
+
             AudioSource.PlayClipAtPoint(shootSound, transform.position);
 
             RaycastHit hit;
@@ -108,6 +110,12 @@ public class PlayerController : MonoBehaviour
         {
             ammo += 1;
             Destroy(other.gameObject);
+            GameManager.Instance.ChangeAmmo();
+        }
+
+        if (other.CompareTag("Finish"))
+        {
+            GameManager.Instance.WinGame();
         }
     }
 }
