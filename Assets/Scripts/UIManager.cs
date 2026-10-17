@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
         {
             GameManager.Instance.OnAmmoChanged += UpdateAmmoText;
             GameManager.Instance.OnPlayerWin += ShowWinScreen;
+            GameManager.Instance.OnPlayerLose += ShowLoseScreen;
         }
     }
 
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
         {
             GameManager.Instance.OnAmmoChanged -= UpdateAmmoText;
             GameManager.Instance.OnPlayerWin -= ShowWinScreen;
+            GameManager.Instance.OnPlayerLose -= ShowLoseScreen;
         }
     }
 
@@ -52,6 +54,12 @@ public class UIManager : MonoBehaviour
     {
         endScreen.SetActive(true);
         endMessage.text = "You Survived the Cornfield!";
+    }
+
+    void ShowLoseScreen()
+    {
+        endScreen.SetActive(true);
+        endMessage.text = "You Died!";
     }
 
 }

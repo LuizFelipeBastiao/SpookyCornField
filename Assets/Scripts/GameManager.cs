@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public event Action OnAmmoChanged;
     public event Action OnPlayerWin;
+    public event Action OnPlayerLose;
     
     private void Awake()
     {
@@ -30,6 +31,13 @@ public class GameManager : MonoBehaviour
     {
         OnPlayerWin?.Invoke();
 
+        Time.timeScale = 0f;
+    }
+
+    public void LoseGame()
+    {
+        OnPlayerLose?.Invoke();
+        
         Time.timeScale = 0f;
     }
 

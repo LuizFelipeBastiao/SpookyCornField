@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     public int ammo;
 
-    public float alcanceTiro = 50f;
+    public float alcanceTiro = 28f;
     public float raioDaMira = 1.5f;
 
     CharacterController controller;
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private void atirar()
     {
-        if (shootAction.action.triggered && ammo > 0 && podeAtirar())   // MUDOU: + podeAtirar()
+        if (shootAction.action.triggered && ammo > 0 && podeAtirar())   
         {
             ammo -= 1;
 
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
             AudioSource.PlayClipAtPoint(shootSound, transform.position);
 
             if (animatorArma != null)
-                animatorArma.SetTrigger("Atirar");   // NOVO: dispara a animação
+                animatorArma.SetTrigger("Atirar");
 
             RaycastHit hit;
             if (Physics.SphereCast(cam.position, raioDaMira, cam.forward, out hit, alcanceTiro))
@@ -129,6 +129,11 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Finish"))
         {
             GameManager.Instance.WinGame();
+        }
+
+        if (other.CompareTag("EnemyAttack"))
+        {
+            GameManager.Instance.LoseGame();
         }
     }
 }
