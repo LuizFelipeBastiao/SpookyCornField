@@ -10,12 +10,13 @@ public class PlayerController : MonoBehaviour
     public AudioClip shootSound;
 
     public Transform cam;
+    public Animator animatorArma;   
 
     public float velocidade = 5f;
     public float sensibilidade = 0.1f;
     public float limitePitch = 89f;
     public float gravidade = -20f;
-    
+
     public int ammo;
 
     public float alcanceTiro = 50f;
@@ -66,8 +67,8 @@ public class PlayerController : MonoBehaviour
         pitch -= look.y * sensibilidade;
         pitch = Mathf.Clamp(pitch, -limitePitch, limitePitch);
 
-        transform.rotation = Quaternion.Euler(0f, yaw, 0f);      // corpo: s� yaw
-        cam.localRotation = Quaternion.Euler(pitch, 0f, 0f);     // c�mera: s� pitch
+        transform.rotation = Quaternion.Euler(0f, yaw, 0f);      // corpo: só yaw
+        cam.localRotation = Quaternion.Euler(pitch, 0f, 0f);     // câmera: só pitch
     }
 
     private void moverPlayer()
@@ -83,9 +84,18 @@ public class PlayerController : MonoBehaviour
         controller.Move(move * Time.deltaTime);
     }
 
+    // NOVO: só deixa atirar quando a arma está no estado "Parado"
+    private bool podeAtirar()
+    {
+        if (animatorArma == null) return true;   // sem animator, atira normalmente
+
+        var estado = animatorArma.GetCurrentAnimatorStateInfo(0);
+        return estado.IsName("Parado") && !animatorArma.IsInTransition(0);
+    }
+
     private void atirar()
     {
-        if (shootAction.action.triggered && ammo > 0)
+        if (shootAction.action.triggered && ammo > 0 && podeAtirar())   // MUDOU: + podeAtirar()
         {
             ammo -= 1;
 
@@ -93,10 +103,13 @@ public class PlayerController : MonoBehaviour
 
             AudioSource.PlayClipAtPoint(shootSound, transform.position);
 
+            if (animatorArma != null)
+                animatorArma.SetTrigger("Atirar");   // NOVO: dispara a animação
+
             RaycastHit hit;
             if (Physics.SphereCast(cam.position, raioDaMira, cam.forward, out hit, alcanceTiro))
             {
-                if (hit.collider.CompareTag("Enemy")) 
+                if (hit.collider.CompareTag("Enemy"))
                 {
                     hit.collider.GetComponent<PumpkinController>().TakeDamage();
                 }
