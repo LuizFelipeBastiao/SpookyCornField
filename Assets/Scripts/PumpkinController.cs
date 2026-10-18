@@ -27,7 +27,7 @@ public class PumpkinController : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, playerTransform.position) < 5.0f && !hit)
+        if (Vector3.Distance(transform.position, playerTransform.position) < 6.0f && !hit)
         {
             Attack();
         }

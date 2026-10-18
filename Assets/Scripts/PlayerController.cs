@@ -117,6 +117,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void FreeMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ammo"))
@@ -129,11 +135,13 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Finish"))
         {
             GameManager.Instance.WinGame();
+            FreeMouse();
         }
 
         if (other.CompareTag("EnemyAttack"))
         {
             GameManager.Instance.LoseGame();
+            FreeMouse();
         }
     }
 }

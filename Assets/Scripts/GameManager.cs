@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class GameManager : MonoBehaviour
@@ -39,6 +40,10 @@ public class GameManager : MonoBehaviour
         OnPlayerLose?.Invoke();
         
         Time.timeScale = 0f;
+    }
+
+    public void MainMenu(){
+        SceneManager.LoadScene("Menu");
     }
 
     void Update()
