@@ -5714,9 +5714,49 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 50bcd8724056fe14791bbba01d2b3150, type: 2}
+    - target: {fileID: -4395974225399001530, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -11.815511
+      objectReference: {fileID: 0}
+    - target: {fileID: -4395974225399001530, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.000013655131
+      objectReference: {fileID: 0}
+    - target: {fileID: -4395974225399001530, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.000000025165768
+      objectReference: {fileID: 0}
+    - target: {fileID: -816064569992186926, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -17.86179
+      objectReference: {fileID: 0}
+    - target: {fileID: -816064569992186926, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -1.6271174e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: -816064569992186926, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 5.5156416e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: -544519042924244321, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: aefe5b806684d204c92340b73ef34825, type: 3}
       propertyPath: m_Name
       value: Remington_model_M31
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698744347499143916, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.000004325711
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698744347499143916, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 1.2722218e-14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698744347499143916, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -1.2722218e-14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5725,6 +5765,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aefe5b806684d204c92340b73ef34825, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1311850710}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aefe5b806684d204c92340b73ef34825, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1311850711}
     - targetCorrespondingSourceObject: {fileID: 6217271452696155449, guid: aefe5b806684d204c92340b73ef34825, type: 3}
       insertIndex: -1
       addedObject: {fileID: 120971436}
@@ -6138,6 +6181,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   target: {fileID: 1298775972}
+  velocidadeCorrida: 20
+  aceleracaoCorrida: 40
+  intervaloEntreCorridas: {x: 4, y: 15}
+  duracaoCorrida: {x: 2, y: 10}
 --- !u!114 &813526006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9528,6 +9575,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1311850711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643053834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53104032f0b13743b23b1ae20e647f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArmaAudio
+  somRecarregar: {fileID: 8300000, guid: dcf25c2cc8d8107469d070ef2f6fd701, type: 3}
+  inicioRecarga: 0
+  duracaoRecarga: 0.85
 --- !u!4 &1336882402 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d9c58de5c3b42c943954ff33643243d9, type: 3}
