@@ -123,6 +123,13 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = true;
     }
 
+    // desliga o controle do player (mira, tiro e movimento) na tela de fim de jogo
+    private void EndGame()
+    {
+        FreeMouse();
+        enabled = false;   // chama OnDisable, que desabilita as actions
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ammo"))
@@ -135,13 +142,13 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Finish"))
         {
             GameManager.Instance.WinGame();
-            FreeMouse();
+            EndGame();
         }
 
         if (other.CompareTag("EnemyAttack"))
         {
             GameManager.Instance.LoseGame();
-            FreeMouse();
+            EndGame();
         }
     }
 }
