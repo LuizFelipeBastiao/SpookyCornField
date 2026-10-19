@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public InputActionReference lookAction;
     public InputActionReference shootAction;
     public AudioClip shootSound;
+    public AudioClip somPegarItem;
+    [Range(0f, 1f)] public float volumePegarItem = 1f;
 
     public Transform cam;
     public Animator animatorArma;   
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float raioDaMira = 1.5f;
 
     CharacterController controller;
+    AudioSource audioSource;
     float yaw;
     float pitch;
     float velocidadeY;
@@ -31,6 +34,11 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         yaw = transform.eulerAngles.y;
+
+        // AudioSource 2D do player (o item é destruído ao pegar, então o som não pode sair dele)
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -136,6 +144,9 @@ public class PlayerController : MonoBehaviour
         {
             ammo += 1;
             Destroy(other.gameObject);
+
+            if (somPegarItem != null)
+                audioSource.PlayOneShot(somPegarItem, volumePegarItem);
             GameManager.Instance.ChangeAmmo();
         }
 

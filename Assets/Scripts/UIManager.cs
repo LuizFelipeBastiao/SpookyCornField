@@ -11,6 +11,10 @@ public class UIManager : MonoBehaviour
     public GameObject player;
     private PlayerController playerController;
 
+    public AudioClip somMorte;
+    public AudioSource musicaFundo;
+    private AudioSource audioSource;
+
     private void OnEnable()
     {
         if (GameManager.Instance != null)
@@ -37,6 +41,11 @@ public class UIManager : MonoBehaviour
         {
             playerController = player.GetComponent<PlayerController>();
         }
+
+        // AudioSource 2D para os sons da UI (não é afetado pelo Time.timeScale = 0)
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,6 +69,12 @@ public class UIManager : MonoBehaviour
     {
         endScreen.SetActive(true);
         endMessage.text = "You Died!";
+
+        if (musicaFundo != null)
+            musicaFundo.Stop();
+
+        if (somMorte != null)
+            audioSource.PlayOneShot(somMorte);
     }
 
 }

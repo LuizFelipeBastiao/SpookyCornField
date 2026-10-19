@@ -19,10 +19,24 @@ public class PumpkinController : MonoBehaviour
     public Transform playerTransform;
     public GameObject attackHitbox;
 
+    public AudioClip somAtaque;
+    [Range(0f, 1f)] public float volumeAtaque = 1f;
+    [Range(0.1f, 3f)] public float pitchAtaque = 1f;   // > 1 mais agudo e rápido, < 1 mais grave e lento
+    public float atrasoSomAtaque = 0f;     // segundos depois do início do ataque (ex: 0.85 = junto do golpe)
+    private AudioSource audioSource;
+
     private void Start()
     {
         ultimaPos = transform.position;
-        attackHitbox.SetActive(false);    
+        attackHitbox.SetActive(false);
+
+        // AudioSource 3D próprio pro ataque: o jogador ouve de onde vem
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
+        audioSource.minDistance = 2f;
+        audioSource.maxDistance = 30f;
     }
 
     private void Update()
@@ -85,6 +99,15 @@ public class PumpkinController : MonoBehaviour
     private void Attack()
     {
         animator.SetTrigger("Attack");
+
+        if (somAtaque != null)
+        {
+            audioSource.clip = somAtaque;
+            audioSource.volume = volumeAtaque;
+            audioSource.pitch = pitchAtaque;
+            audioSource.PlayDelayed(atrasoSomAtaque);
+        }
+
         attacking = true;
         hit = true;
         stunTimer = attackDuration;
