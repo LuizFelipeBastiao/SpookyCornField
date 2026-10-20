@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public event Action OnAmmoChanged;
     public event Action OnPlayerWin;
     public event Action OnPlayerLose;
+    public event Action OnPauseGame;
     
     private void Awake()
     {
@@ -26,6 +27,18 @@ public class GameManager : MonoBehaviour
     public void ChangeAmmo()
     {
         OnAmmoChanged?.Invoke();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        OnPauseGame?.Invoke();
+    }
+
+    public void UnpauseGame()
+    {
+        Time.timeScale = 1f;
+        OnPauseGame?.Invoke();
     }
 
     public void WinGame()

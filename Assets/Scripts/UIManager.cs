@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     public GameObject endScreen;
     public TextMeshProUGUI endMessage;
 
+    public GameObject pauseMenu;
+
     public GameObject player;
     private PlayerController playerController;
 
@@ -22,6 +24,7 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.OnAmmoChanged += UpdateAmmoText;
             GameManager.Instance.OnPlayerWin += ShowWinScreen;
             GameManager.Instance.OnPlayerLose += ShowLoseScreen;
+            GameManager.Instance.OnPauseGame += TogglePauseMenu;
         }
     }
 
@@ -32,6 +35,7 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.OnAmmoChanged -= UpdateAmmoText;
             GameManager.Instance.OnPlayerWin -= ShowWinScreen;
             GameManager.Instance.OnPlayerLose -= ShowLoseScreen;
+            GameManager.Instance.OnPauseGame -= TogglePauseMenu;
         }
     }
 
@@ -57,6 +61,15 @@ public class UIManager : MonoBehaviour
     void UpdateAmmoText()
     {
         ammoText.text = "Ammo: " + playerController.ammo.ToString();
+    }
+
+    void TogglePauseMenu()
+    {
+        if (pauseMenu != null)
+        {
+            bool isActive = pauseMenu.activeSelf;
+            pauseMenu.SetActive(!isActive);
+        }
     }
 
     void ShowWinScreen()

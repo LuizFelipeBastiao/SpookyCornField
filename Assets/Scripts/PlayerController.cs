@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public InputActionReference moveAction;
     public InputActionReference lookAction;
     public InputActionReference shootAction;
+    public InputActionReference pauseAction;
     public AudioClip shootSound;
     public AudioClip somPegarItem;
     [Range(0f, 1f)] public float volumePegarItem = 1f;
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
         moveAction.action.Enable();
         lookAction.action.Enable();
         shootAction.action.Enable();
+        pauseAction.action.Enable();
     }
 
     void OnDisable()
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour
         moveAction.action.Disable();
         lookAction.action.Disable();
         shootAction.action.Disable();
+        pauseAction.action.Disable();
     }
 
     void Update()
@@ -65,6 +68,7 @@ public class PlayerController : MonoBehaviour
         mirarCamera();
         atirar();
         moverPlayer();
+        pausar();
     }
 
     private void mirarCamera()
@@ -92,7 +96,6 @@ public class PlayerController : MonoBehaviour
         controller.Move(move * Time.deltaTime);
     }
 
-    // NOVO: só deixa atirar quando a arma está no estado "Parado"
     private bool podeAtirar()
     {
         if (animatorArma == null) return true;   // sem animator, atira normalmente
@@ -123,6 +126,22 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void pausar()
+    {
+        if (pauseAction.action.triggered)
+        {
+            GameManager.Instance.PauseGame();
+            FreeMouse();
+        }
+    }
+
+    public void continuar()
+    {
+        GameManager.Instance.UnpauseGame();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void FreeMouse()
